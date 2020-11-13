@@ -137,7 +137,7 @@
   notproduct(intx, BreakAtNode, 0,                                          \
           "Break at construction of this Node (either _idx or _debug_idx)") \
                                                                             \
-  notproduct(intx, BreakAtCompileId, 0,                                     \
+  notproduct(intx, BreakAtCompileId, -1,                                    \
           "Break at compile id")                                            \
                                                                             \
   notproduct(bool, OptoBreakpointC2R, false,                                \

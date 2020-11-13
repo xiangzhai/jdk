@@ -377,7 +377,7 @@ void PhaseOutput::Output() {
       (OptoBreakpoint && C->is_method_compilation())        ||
       (OptoBreakpointOSR && C->is_osr_compilation())        ||
       (OptoBreakpointC2R && !C->method())                   ||
-      (BreakAtCompileId  == C->compile_id())                 ) {
+      (BreakAtCompileId  == C->compile_id() && C->is_method_compilation())) {
     // checking for C->method() means that OptoBreakpoint does not apply to
     // runtime stubs or frame converters
     C->cfg()->insert( entry, 1, new MachBreakpointNode() );
