@@ -373,7 +373,8 @@ void PhaseOutput::Output() {
 
   }
 
-  char compile_name[1024] = { '\0' };
+  char compile_name[1024]          = { '\0' };
+  char break_at_compile_name[1024] = { '\0' };
   if (C->is_method_compilation()) {
     const char* klass_name  = C->method()->holder()->name()->as_utf8();
     const char* method_name = C->method()->name()->as_utf8();
@@ -392,13 +393,15 @@ void PhaseOutput::Output() {
     snprintf(compile_name, sizeof(compile_name) - 1, "%s::%s", buf, method_name);
     ptr = NULL;
   }
+  snprintf(break_at_compile_name, sizeof(break_at_compile_name) - 1, "%s",
+           BreakAtCompileName ? BreakAtCompileName : "(null)");
   // Break before main entry point
   if ((C->method() && C->directive()->BreakAtExecuteOption) ||
       (OptoBreakpoint && C->is_method_compilation())        ||
       (OptoBreakpointOSR && C->is_osr_compilation())        ||
       (OptoBreakpointC2R && !C->method())                   ||
       ((BreakAtCompileId == C->compile_id() ||
-        strcmp(BreakAtCompileName, compile_name) == 0) && C->is_method_compilation())) {
+        strcmp(break_at_compile_name, compile_name) == 0) && C->is_method_compilation())) {
     // checking for C->method() means that OptoBreakpoint does not apply to
     // runtime stubs or frame converters
     C->cfg()->insert( entry, 1, new MachBreakpointNode() );
