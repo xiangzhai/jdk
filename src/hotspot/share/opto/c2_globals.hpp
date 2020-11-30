@@ -144,6 +144,9 @@
   notproduct(intx, BreakAtCompileId, -1,                                    \
           "Break at compile id")                                            \
                                                                             \
+  notproduct(ccstr, BreakAtCompileName, NULL,                               \
+          "Break at compile name")                                          \
+                                                                            \
   notproduct(bool, OptoBreakpointC2R, false,                                \
           "insert breakpoint at runtime stub entry")                        \
                                                                             \
